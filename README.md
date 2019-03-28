@@ -3,6 +3,14 @@
 万事开头难。之前写图像识别的博客教程，也是为了方便那些学了很多理论知识，却对实际项目无从下手的小伙伴，后来转到目标检测来了，师从烨兄、亚光兄，从他们那学了不少检测的知识和操作，今天也终于闲下了，准备写个检测系列的总结。一方面分享知识希望可以一起学习，另一方面让一部分人少走弯路，快速上路（入坑）。
 
 此部分代码：[Github](https://github.com/spytensor/prepare_detection_dataset)
+博客地址: [目标检测系列一：如何制作数据集?](http://www.spytensor.com/index.php/archives/48/)
+
+
+**更新**
+
+- (28/03/2019)
+    - 新增 `csv2labelme`
+
 
 <h4 id="1">1. 内容介绍</h4>
 
@@ -213,6 +221,18 @@ labelme_path = "labelme/"  # path for labelme dataset
 saved_coco_path = "./"     # path for saved coco dataset
 ```
 然后运行 `python labelme2voc.py`，生成文件形式同`csv2voc`
+
+<h5 id="3.5">3.5 csv2labelme</h5>
+
+首先更改`csv2labelme.py`中以下几个配置
+
+```
+image_path = "./images/"  # path for images
+csv_file = "./"     # path for csv annotations
+```
+然后运行 `python csv2labelme.py`，生成的`json`文件会保存在`image_path`下,切换路径过去,直接`labelme`便
+可以查看标签.
+
 
 <h4 id="4">4. 万能中介csv</h4>
 
