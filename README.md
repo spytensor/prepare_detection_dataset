@@ -20,6 +20,7 @@
 - csv to voc
 - labelme to coco
 - labelme to voc
+- csv to json
 
 <h4 id="2">2. 标准格式</h4>
 
