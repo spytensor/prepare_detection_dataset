@@ -86,7 +86,7 @@ class Csv2CoCo:
         annotation['segmentation'] = self._get_seg(points)
         annotation['bbox'] = self._get_box(points)
         annotation['iscrowd'] = 0
-        annotation['area'] = 1.0
+        annotation['area'] = self._get_area(points)
         return annotation
 
     # COCO的格式： [x1,y1,w,h] 对应COCO的bbox格式
@@ -96,6 +96,13 @@ class Csv2CoCo:
         max_x = points[2]
         max_y = points[3]
         return [min_x, min_y, max_x - min_x, max_y - min_y]
+    # 计算面积
+    def _get_area(self, points):
+        min_x = points[0]
+        min_y = points[1]
+        max_x = points[2]
+        max_y = points[3]
+        return (max_x - min_x+1) * (max_y - min_y+1)
     # segmentation
     def _get_seg(self, points):
         min_x = points[0]
