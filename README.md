@@ -254,3 +254,6 @@ csv_labels.close()
 
 ### TODO
 - 1. [ ] Multiprocessing
+## 感谢
+At the same time, thank you all for your attention to this work!
+[![Stargazers repo roster for @spytensor/prepare_detection_dataset](https://reporoster.com/stars/spytensor/prepare_detection_dataset)](https://github.com/zhouhaoyi/Informer2020/stargazers)
