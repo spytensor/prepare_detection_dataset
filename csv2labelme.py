@@ -3,11 +3,7 @@ import cv2
 import json
 import pandas as pd
 import numpy as np
-from glob import glob 
-from tqdm import tqdm
-from IPython import embed
 import base64
-from labelme import utils
 image_path = "./images/"
 csv_file = "./train_labels.csv"
 annotations = pd.read_csv(csv_file,header=None).values
@@ -46,4 +42,5 @@ for key,value in total_csv_annotations.items():
         s["points"] = points
         shapes.append(s)
     labelme_format["shapes"] = shapes
-    json.dump(labelme_format,open("%s/%s/"%(image_path,key.replace(".jpg",".json")),"w"),ensure_ascii=False, indent=2)
+    save_path = os.path.join(image_path, key.replace(".jpg", ".json"))
+    json.dump(labelme_format, open(save_path, "w"), ensure_ascii=False, indent=2)

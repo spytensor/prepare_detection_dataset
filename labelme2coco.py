@@ -70,9 +70,11 @@ class Lableme2CoCo:
         annotation['image_id'] = self.img_id
         annotation['category_id'] = int(classname_to_id[label])
         annotation['segmentation'] = [np.asarray(points).flatten().tolist()]
-        annotation['bbox'] = self._get_box(points)
+        bbox = self._get_box(points)
+        annotation['bbox'] = bbox
         annotation['iscrowd'] = 0
-        annotation['area'] = 1.0
+        # area = w * h，供 cocoeval 按 small/medium/large 分档统计 AP
+        annotation['area'] = float(bbox[2] * bbox[3])
         return annotation
 
     # 读取json文件，返回一个json对象

@@ -8,11 +8,8 @@ import os
 import json
 import numpy as np
 import pandas as pd
-import glob
 import cv2
-import os
 import shutil
-from IPython import embed
 from sklearn.model_selection import train_test_split
 np.random.seed(41)
 

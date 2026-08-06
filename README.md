@@ -8,8 +8,21 @@
 
 **更新**
 
+- (2026)
+    - 修复 `labelme2voc.py` 划分数据集时 glob 路径写错（少了 `VOCdevkit`）导致 train/val/trainval.txt 为空的问题
+    - 修复 `csv2labelme.py` 输出 json 路径带尾斜杠导致 `IsADirectoryError` 无法运行的问题
+    - 修复 `labelme2coco.py` 中 `area` 被写死为 `1.0` 的问题，改为按 `w*h` 计算（影响 cocoeval 的 AP 分档）
+    - 清理无用的 `from IPython import embed` 等依赖，路径处理改用 `os.path.basename`，新增 `requirements.txt`
 - (28/03/2019)
     - 新增 `csv2labelme`
+
+**环境依赖**
+
+```bash
+pip install -r requirements.txt
+```
+
+> 说明：只有 `labelme2coco.py` 需要 `labelme` 包（用于解码 `imageData`），其余脚本仅依赖 numpy / pandas / opencv-python / scikit-learn。
 
 
 <h4 id="1">1. 内容介绍</h4>
@@ -176,9 +189,9 @@ saved_coco_path = "./"   # path to save converted coco dataset
 
 ```
 csv_file = "labels.csv"
-saved_path = ".VOC2007/" # path to save converted voc dataset     
+saved_path = "./VOCdevkit/VOC2007/" # path to save converted voc dataset
 image_save_path = "./JPEGImages/"   # converted voc images path
-image_raw_parh = "images/"          # original image path
+image_raw_path = "images/"          # original image path
 ```
 
 然后运行 `python csv2voc.py`
@@ -228,8 +241,8 @@ saved_coco_path = "./"     # path for saved coco dataset
 首先更改`csv2labelme.py`中以下几个配置
 
 ```
-image_path = "./images/"  # path for images
-csv_file = "./"     # path for csv annotations
+image_path = "./images/"        # path for images
+csv_file = "./train_labels.csv"  # path for csv annotations
 ```
 然后运行 `python csv2labelme.py`，生成的`json`文件会保存在`image_path`下,切换路径过去,直接`labelme`便
 可以查看标签.

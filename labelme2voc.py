@@ -20,7 +20,7 @@ if not os.path.exists(saved_path + "ImageSets/Main/"):
     
 #3.获取待处理文件
 files = glob(labelme_path + "*.json")
-files = [i.split("/")[-1].split(".json")[0] for i in files]
+files = [os.path.basename(i).split(".json")[0] for i in files]
 
 #4.读取标注信息并写入 xml
 for json_file_ in files:
@@ -86,8 +86,8 @@ ftrainval = open(txtsavepath+'/trainval.txt', 'w')
 ftest = open(txtsavepath+'/test.txt', 'w')
 ftrain = open(txtsavepath+'/train.txt', 'w')
 fval = open(txtsavepath+'/val.txt', 'w')
-total_files = glob("./VOC2007/Annotations/*.xml")
-total_files = [i.split("/")[-1].split(".xml")[0] for i in total_files]
+total_files = glob(saved_path + "Annotations/*.xml")
+total_files = [os.path.basename(i).split(".xml")[0] for i in total_files]
 #test_filepath = ""
 for file in total_files:
     ftrainval.write(file + "\n")

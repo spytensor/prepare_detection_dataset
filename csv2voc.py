@@ -2,17 +2,15 @@ import os
 import numpy as np
 import codecs
 import pandas as pd
-import json
 from glob import glob
 import cv2
 import shutil
 from sklearn.model_selection import train_test_split
-from IPython import embed
 #1.标签路径
 csv_file = "../csv/train_labels.csv"
 saved_path = "./VOCdevkit/VOC2007/"                #保存路径
 image_save_path = "./JPEGImages/"
-image_raw_parh = "../csv/images/"
+image_raw_path = "../csv/images/"
 #2.创建要求文件夹
 if not os.path.exists(saved_path + "Annotations"):
     os.makedirs(saved_path + "Annotations")
@@ -34,9 +32,7 @@ for annotation in annotations:
 
 #4.读取标注信息并写入 xml
 for filename,label in total_csv_annotations.items():
-    #embed()
-    height, width, channels = cv2.imread(image_raw_parh + filename).shape
-    #embed()
+    height, width, channels = cv2.imread(image_raw_path + filename).shape
     with codecs.open(saved_path + "Annotations/"+filename.replace(".jpg",".xml"),"w","utf-8") as xml:
         xml.write('<annotation>\n')
         xml.write('\t<folder>' + 'UAV_data' + '</folder>\n')
@@ -97,13 +93,13 @@ ftest = open(txtsavepath+'/test.txt', 'w')
 ftrain = open(txtsavepath+'/train.txt', 'w')
 fval = open(txtsavepath+'/val.txt', 'w')
 total_files = glob(saved_path+"./Annotations/*.xml")
-total_files = [i.split("/")[-1].split(".xml")[0] for i in total_files]
+total_files = [os.path.basename(i).split(".xml")[0] for i in total_files]
 #test_filepath = ""
 for file in total_files:
     ftrainval.write(file + "\n")
 
 # move images to voc JPEGImages folder
-for image in glob(image_raw_parh+"/*.jpg"):
+for image in glob(image_raw_path+"/*.jpg"):
     shutil.copy(image,saved_path+image_save_path)
 
 train_files,val_files = train_test_split(total_files,test_size=0.15,random_state=42)
