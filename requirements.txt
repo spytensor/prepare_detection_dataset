@@ -1,0 +1,6 @@
+numpy
+pandas
+opencv-python
+scikit-learn
+# labelme2coco.py 需要 labelme 读取 imageData
+labelme
